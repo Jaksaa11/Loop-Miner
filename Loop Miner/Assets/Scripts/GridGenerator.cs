@@ -1,14 +1,20 @@
+using UnityEditor;
 using UnityEngine;
 
 public class GridGenerator : MonoBehaviour
 {
-    private  int width = 7;
-    private  int height = 10;
+    public static GridGenerator instance;
+    [SerializeField] private int width;
+    [SerializeField] private int height;
     private float tilesizeX = 1.014454f;
     private float tilesizeY = 1f;
     [SerializeField] private GameObject[] blockPrefabs;
     private GameObject[,] gridBlocks;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         ResetGrid();

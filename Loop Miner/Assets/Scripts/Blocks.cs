@@ -15,6 +15,8 @@ public class Blocks : MonoBehaviour
         if (currentHealth <= 0)
         {
             GameObject.Destroy(gameObject);
+            GameManager.instance.AddCoins(goldWorth);
+            UIManager.instance.ChangeCoinsText();
         }
     }
 }
