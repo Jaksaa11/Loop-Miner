@@ -10,7 +10,11 @@ public class CameraControl : MonoBehaviour
 
     private void FixedUpdate()
     {     
-        transform.position = new Vector3(transform.position.x,player.position.y+lookAhead,transform.position.z); 
-        lookAhead = Mathf.Lerp(lookAhead,(aheadDistance* player.localScale.y), cameraSpeed*Time.deltaTime);
+        if(player != null)
+        {
+            transform.position = new Vector3(transform.position.x, player.position.y + lookAhead, transform.position.z);
+            lookAhead = Mathf.Lerp(lookAhead, (aheadDistance * player.localScale.y), cameraSpeed * Time.deltaTime);
+        }
+        
     }
 }

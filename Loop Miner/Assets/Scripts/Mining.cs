@@ -1,15 +1,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Mining : MonoBehaviour
 {
-    [SerializeField] LayerMask groundLayer;
-    [SerializeField] int damage;
+    public static Mining instance;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private int damage;
+    [SerializeField] private GameObject explosion;
+    
     private void FixedUpdate()
     {
         Debug.DrawRay(transform.position,-transform.up,Color.red);
     }
 
+    private void Awake()
+    {
+        instance = this;
+    }
     public void Mine(InputAction.CallbackContext con)
     {
         if (con.performed)
@@ -20,7 +28,18 @@ public class Mining : MonoBehaviour
             {
                 hit.collider.gameObject.GetComponent<Blocks>().TakeDamage(damage);
             }
+        }        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Core")
+        {
+            explosion.SetActive(true);
         }
-        
+    }
+
+    public void ChangeDamage(int _damage)
+    {
+        damage=_damage;
     }
 }

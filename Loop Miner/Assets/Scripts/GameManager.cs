@@ -1,9 +1,12 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [SerializeField]private float loopInterval;
+    [SerializeField] private float loopInterval;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject gridTop;
     [SerializeField] private GameObject gridMiddle;
@@ -15,6 +18,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        goldCoins = 999999;
         initialPosition = player.transform.position;
         loopTimer = loopInterval;
     }
@@ -22,14 +26,17 @@ public class GameManager : MonoBehaviour
     private void FixedUpdate()
     {
         loopInterval -= Time.deltaTime;
-        Debug.Log(loopInterval);
         if (loopInterval <= 0)
         {
             Loop();
             loopInterval = loopTimer;
         }
     }
-
+    public string LoopLeft()
+    {
+        int left = (int)loopInterval;
+        return left.ToString();
+    }
     private void Loop()
     {
         player.transform.position = initialPosition;
@@ -39,6 +46,7 @@ public class GameManager : MonoBehaviour
 
         
     }
+    
 
     public void AddCoins(int amount)
     {
@@ -47,5 +55,10 @@ public class GameManager : MonoBehaviour
     public void RemoveCoins(int amount)
     {
         goldCoins -= amount;
+    }
+
+    public void ChangeInterval(int time)
+    {
+        loopTimer = time;
     }
 }
