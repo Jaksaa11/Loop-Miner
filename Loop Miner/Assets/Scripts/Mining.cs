@@ -26,7 +26,8 @@ public class Mining : MonoBehaviour
 
             if (hit.collider != null)
             {
-                hit.collider.gameObject.GetComponent<Blocks>().TakeDamage(damage);
+                if (hit.collider.gameObject.GetComponent<Blocks>() != null)
+                    hit.collider.gameObject.GetComponent<Blocks>().TakeDamage(damage);
             }
         }        
     }

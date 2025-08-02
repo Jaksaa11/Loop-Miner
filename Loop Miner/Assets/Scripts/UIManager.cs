@@ -12,23 +12,30 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
     }
     private void FixedUpdate()
     {
-        timer.text = GameManager.instance.LoopLeft();
-     
+        if (timer != null)
+        {
+            timer.text = GameManager.instance.LoopLeft();
+        }
     }
     private void Update()
     {
-        if (pauseMenu.activeInHierarchy || shopUI.activeInHierarchy)
+        if(pauseMenu != null && shopUI != null)
         {
-            Time.timeScale = 0f;
+            if (pauseMenu.activeInHierarchy || shopUI.activeInHierarchy)
+            {
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+            }
         }
-        else
-        {
-            Time.timeScale = 1f;
-        }
+     
     }
     public void ChangeCoinsText()
     {
